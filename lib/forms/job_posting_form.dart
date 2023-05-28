@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:governmentjobadmin/model/job_model.dart';
 import 'package:governmentjobadmin/providers/jobprovider.dart';
@@ -48,7 +46,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Row(
@@ -70,7 +68,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
                     },
                   ),
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 Expanded(
                   child: TextFormField(
                     controller: jobCategoryController,
@@ -90,7 +88,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
                 ),
               ],
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Row(
               children: [
                 Expanded(
@@ -110,7 +108,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
                     },
                   ),
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 Expanded(
                   child: TextFormField(
                     controller: websiteLinkController,
@@ -130,7 +128,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
                 ),
               ],
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Row(
               children: [
                 Expanded(
@@ -151,7 +149,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
                     },
                   ),
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -177,7 +175,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
                 ),
               ],
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Row(
               children: [
                 Expanded(
@@ -197,7 +195,7 @@ class _JobPostingFormState extends State<JobPostingForm> {
                     },
                   ),
                 ),
-                SizedBox(width: 10.0),
+                const SizedBox(width: 10.0),
                 Expanded(
                   child: TextFormField(
                     controller: qualificationController,
@@ -217,21 +215,21 @@ class _JobPostingFormState extends State<JobPostingForm> {
                 ),
               ],
             ),
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
           
             context.watch<JobProvider>().isLoading?const Center(child: CircularProgressIndicator(),):
             Row(
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 15)),
+                    style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 15)),
                     onPressed: () async{
                       if(jobCategoryController.text.isEmpty || jobCategoryController.text.isEmpty || descriptionController.text.isEmpty || websiteLinkController.text.isEmpty || lastDateController.text.isEmpty ||qualificationController.text.isEmpty){
                         errorSnackBar(context, "PLease enter all fields");
                         return;
                       }
                       
-                     JobModel jobModel=JobModel(
+                         JobModel jobModel=JobModel(
                                       jobName: jobNameController.text, 
                                       jobCategory: jobCategoryController.text, 
                                       description: descriptionController.text, 
@@ -245,10 +243,10 @@ class _JobPostingFormState extends State<JobPostingForm> {
                       context.read<JobProvider>().postJob(context, jobModel.toJson());
                   }, child: Text("Submit",style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18),),),
                 ),
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
 
                 Expanded(child: ElevatedButton(
-                   style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 15),),
+                   style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 15),),
 
                   onPressed: () {
                     jobNameController.clear();

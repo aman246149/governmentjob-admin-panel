@@ -6,7 +6,7 @@ import 'package:governmentjobadmin/pages/pushNotification.dart';
 
 class LayoutProvider extends ChangeNotifier{
   List<String> tabs=["Add/Edit Jobs","PushNotification"];
-  List<Widget> pages=[ JobPosting(),const PushNotification()];
+  List<Widget> pages=[ const JobPosting(),const PushNotification()];
 
   PageController controller=PageController();
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:governmentjobadmin/providers/authprovider.dart';
 import 'package:governmentjobadmin/providers/jobprovider.dart';
 import 'package:governmentjobadmin/providers/layout_provider.dart';
+import 'package:governmentjobadmin/providers/notification_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LayoutProvider(),),
         ChangeNotifierProvider(create: (context) => AuthProvider(),),
-        ChangeNotifierProvider(create: (context) => JobProvider(),)
+        ChangeNotifierProvider(create: (context) => JobProvider(),),
+        ChangeNotifierProvider(create: (context) => NotificationProvider(),)
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

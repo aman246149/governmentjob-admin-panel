@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../forms/push_notification_form.dart';
+
 class PushNotification extends StatefulWidget {
   const PushNotification({super.key});
 
@@ -10,6 +12,6 @@ class PushNotification extends StatefulWidget {
 class _PushNotificationState extends State<PushNotification> {
   @override
   Widget build(BuildContext context) {
-    return const Text("Push Notification");
+    return const PushNotificationForm();
   }
 }
