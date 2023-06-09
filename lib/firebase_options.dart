@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCLac6HXff5bNrhqBMMHPCbWAPwtpDN2UA',
-    appId: '1:1094774088630:web:a95bc1ecbbc83986d91717',
+    appId: '1:1094774088630:web:e486182785bd7daad91717',
     messagingSenderId: '1094774088630',
     projectId: 'governmentjobs-e96f8',
     authDomain: 'governmentjobs-e96f8.firebaseapp.com',

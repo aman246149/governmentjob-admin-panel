@@ -20,7 +20,7 @@ class _PushNotificationFormState extends State<PushNotificationForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 20,),
+        const SizedBox(height: 20,),
         Row(
               children: [
                 Expanded(
