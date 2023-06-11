@@ -142,7 +142,6 @@ class _QuizFormState extends State<QuizForm> {
                   child: Text('Option D'),
                 ),
               ],
-              val
               decoration: const InputDecoration(
                 labelText: 'Dropdown',
               ),
@@ -156,31 +155,47 @@ class _QuizFormState extends State<QuizForm> {
           ),
           context.watch<QuizProvider>().isLoading
               ? CircularProgressIndicator()
-              : ElevatedButton(
-                  onPressed: () {
-                    if (quizProvider.questionTitle.text.isEmpty ||
-                        quizProvider.field1Controller.text.isEmpty ||
-                        quizProvider.field2Controller.text.isEmpty ||
-                        quizProvider.field3Controller.text.isEmpty ||
-                        quizProvider.field4Controller.text.isEmpty ||
-                        quizProvider.dropDown.text.isEmpty) {
-                      errorSnackBar(context, "Please Enter all Fields");
-                      return;
-                    }
+              : Row(
+                  children: [
+                    Expanded(
+                        child: ElevatedButton(
+                            onPressed: () {
+                              context.read<QuizProvider>().deleteQuiz(context);
+                            },
+                            child: Text("Delete Previous Quiz"))),
+                    SizedBox(
+                      width: 40,
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (quizProvider.questionTitle.text.isEmpty ||
+                                quizProvider.field1Controller.text.isEmpty ||
+                                quizProvider.field2Controller.text.isEmpty ||
+                                quizProvider.field3Controller.text.isEmpty ||
+                                quizProvider.field4Controller.text.isEmpty ||
+                                quizProvider.dropDown.text.isEmpty) {
+                              errorSnackBar(context, "Please Enter all Fields");
+                              return;
+                            }
 
-                    context.read<QuizProvider>().setQuiz(context, {
-                      "questionTitle": quizProvider.questionTitle.text,
-                      "option1": quizProvider.field1Controller.text,
-                      "option2": quizProvider.field2Controller.text,
-                      "option3": quizProvider.field3Controller.text,
-                      "option4": quizProvider.field4Controller.text,
-                      "dropDown": quizProvider.dropDown.text,
-                      "dateTime": DateTime.now().toString()
-                    });
+                            context.read<QuizProvider>().setQuiz(context, {
+                              "questionTitle": quizProvider.questionTitle.text,
+                              "option1": quizProvider.field1Controller.text,
+                              "option2": quizProvider.field2Controller.text,
+                              "option3": quizProvider.field3Controller.text,
+                              "option4": quizProvider.field4Controller.text,
+                              "dropDown": quizProvider.dropDown.text,
+                              "dateTime": DateTime.now().toString()
+                            });
 
-                    quizProvider.clearTextField();
-                  },
-                  child: Text("Add New Quesion"))
+                            quizProvider.clearTextField();
+                          },
+                          child: Text("Add New Quesion")),
+                    ),
+                  ],
+                )
         ],
       ),
     );

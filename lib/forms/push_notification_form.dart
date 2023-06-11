@@ -13,70 +13,127 @@ class PushNotificationForm extends StatefulWidget {
 }
 
 class _PushNotificationFormState extends State<PushNotificationForm> {
-  TextEditingController title=TextEditingController();
-  TextEditingController body=TextEditingController();
+  TextEditingController title = TextEditingController();
+  TextEditingController body = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
         Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: title,
-                    decoration: InputDecoration(
-                      labelText: 'title',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter title for notifications';
-                      }
-                      return null;
-                    },
+          children: [
+            Expanded(
+              child: TextFormField(
+                controller: title,
+                decoration: InputDecoration(
+                  labelText: 'title',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                const SizedBox(width: 10.0),
-                Expanded(
-                  child: TextFormField(
-                    controller: body,
-                    decoration: InputDecoration(
-                      labelText: 'body of notification',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter body for notification';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ],
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter title for notifications';
+                  }
+                  return null;
+                },
+              ),
             ),
-
-            const SizedBox(height: 15,),
-            context.watch<NotificationProvider>().isLoading?const Center(child: CircularProgressIndicator()):
-            ElevatedButton(
-                    style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 15)),
-                    onPressed: () async{
-                      if(title.text.isEmpty || body.text.isEmpty){
-                        errorSnackBar(context, "PLease enter all fields");
-                        return;
-                      }
-
-                      Map data=PushNotificationModel(to: "/topics/jobNotifications",notification: NotificationBody(title: title.text,body: body.text)).toJson();
-                      
-                      context.read<NotificationProvider>().sendPushNotification(data, context);
-                      print("clciker");
-                  }, child: Text("Send",style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18),),),
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: TextFormField(
+                controller: body,
+                decoration: InputDecoration(
+                  labelText: 'body of notification',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Please enter body for notification';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        context.watch<NotificationProvider>().isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Row(
+                children: [
+                  Expanded(
+                      child: PushNotificationButton(
+                    title: title,
+                    body: body,
+                    topicName: "/topics/jobNotifications",
+                    buttonName: "Send Job Notification",subTitle: "jobNotification",
+                  )),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                      child: PushNotificationButton(
+                    title: title,
+                    body: body,
+                    topicName: "/topics/quizNotifications",
+                    buttonName: "Send Quiz Notificaation",subTitle: "quizNotification",
+                  )),
+                ],
+              ),
       ],
+    );
+  }
+}
+
+class PushNotificationButton extends StatelessWidget {
+  const PushNotificationButton({
+    super.key,
+    required this.title,
+    required this.body,
+    required this.topicName,
+    required this.buttonName, required this.subTitle,
+  });
+
+  final TextEditingController title;
+  final TextEditingController body;
+  final String topicName;
+  final String buttonName;
+  final String subTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 15)),
+      onPressed: () async {
+        if (title.text.isEmpty || body.text.isEmpty) {
+          errorSnackBar(context, "PLease enter all fields");
+          return;
+        }
+
+        Map data = PushNotificationModel(
+                to: topicName,
+                notification: NotificationBody(
+                    title: title.text, body: body.text, subtitle: subTitle))
+            .toJson();
+
+        context
+            .read<NotificationProvider>()
+            .sendPushNotification(data, context);
+        print("clciker");
+      },
+      child: Text(
+        buttonName,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 18),
+      ),
     );
   }
 }

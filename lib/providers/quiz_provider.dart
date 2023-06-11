@@ -5,6 +5,7 @@ import '../dataRepository/quiz_repository.dart';
 
 class QuizProvider extends ChangeNotifier {
   bool isLoading = false;
+
   List<Map<String, dynamic>> data = [];
 
   final TextEditingController questionTitle = TextEditingController();
@@ -23,7 +24,7 @@ class QuizProvider extends ChangeNotifier {
     dropDown.clear();
   }
 
-  void setQuiz(BuildContext context,Map<String, dynamic> value) async {
+  void setQuiz(BuildContext context, Map<String, dynamic> value) async {
     try {
       isLoading = true;
       notifyListeners();
@@ -38,11 +39,17 @@ class QuizProvider extends ChangeNotifier {
     }
   }
 
-  // void setQuizList(Map<String, dynamic> value, BuildContext context) {
-  
-
-  //   setQuiz(context);
-
-  //   notifyListeners();
-  // }
+  void deleteQuiz(BuildContext context) async {
+    try {
+      isLoading = true;
+      notifyListeners();
+      await QuizRepository().deleteQuiz();
+      isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
+      errorSnackBar(context, e.toString());
+    }
+  }
 }
